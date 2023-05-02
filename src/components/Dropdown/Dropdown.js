@@ -1,58 +1,46 @@
 import React from 'react';
-import { Form, Row } from 'react-bootstrap';
+import { Form, Row, Col } from 'react-bootstrap';
 
 const Dropdown = (props) => {
-  const { data, handleNumberSelect, defaultValue, idx } = props;
-  const handleOptionClick = (e) => {
-    let id = e.target.value;
+    const { data, handleNumberSelect, defaultValue, idx } = props;
+    const handleOptionClick = (e) => {
+        let id = e.target.value;
 
-    handleNumberSelect(idx, id, defaultValue.id);
-  };
+        handleNumberSelect(idx, id, defaultValue.id);
+    };
 
-  // console.log('defaultValue =>', defaultValue, 'data => ', data);
-  return (
-    <Row>
-      <Form.Label>
-        Pick a number:
-        <Form.Select
-          name="numbers"
-          onChange={handleOptionClick}
-          defaultValue={defaultValue.number}
-        >
-          <option key={'number-default'} value="">
-            select number
-          </option>
-          {data.map((eachData, i) => {
-            // console.log(eachData.number.toString() == defaultValue);
-            if (
-              eachData.number != defaultValue.number &&
-              eachData.isSelected == true
-            ) {
-              // console.log(eachData);
-              return false;
-            }
-            // return false;
-            return (
-              <option key={'number-' + i} value={eachData.id}>
-                {eachData.number}
-              </option>
-            );
-          })}
-        </Form.Select>
-      </Form.Label>
-    </Row>
-  );
+    return (
+        <Row className="p-2">
+            <Col lg="6">
+                <Form.Group>
+                    <Form.Label>Pick a number:</Form.Label>
+                    <Form.Select
+                        name="numbers"
+                        onChange={handleOptionClick}
+                        defaultValue={defaultValue.number}
+                    >
+                        <option key={'number-default'} value="">
+                            Select a number
+                        </option>
+
+                        {data.map((eachData, i) => {
+                            if (
+                                eachData.number != defaultValue.number &&
+                                eachData.isSelected == true
+                            ) {
+                                return false;
+                            }
+                            return (
+                                <option key={'number-' + i} value={eachData.id}>
+                                    {eachData.number}
+                                </option>
+                            );
+                        })}
+                    </Form.Select>
+                </Form.Group>
+               </Col>
+        </Row>
+    );
 };
 
-<Dropdown>
-  <Dropdown.Toggle variant="success" id="dropdown-basic">
-    Dropdown Button
-  </Dropdown.Toggle>
-
-  <Dropdown.Menu>
-    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-  </Dropdown.Menu>
-</Dropdown>;
 export default Dropdown;

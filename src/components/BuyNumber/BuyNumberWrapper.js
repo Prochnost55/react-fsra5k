@@ -1,7 +1,5 @@
 import React from 'react';
-import data from '../../../data.js';
-import { MAX_NUMBER_BUY_LIMIT } from '../../constants/BuyNumberConsts';
-import Dropdown from '../Dropdown/Dropdown';
+import data from '../../data.js';
 import BuyNumber from './BuyNumber';
 
 const BuyNumberWrapper = (props) => {
@@ -12,11 +10,15 @@ const BuyNumberWrapper = (props) => {
 
   React.useEffect(() => {
     // api call
-    data = data.map((eachData) => {
-      eachData.isSelected = false;
-      return eachData;
-    });
-    setAvailableNumbers(data);
+    if(data){
+        let temp = data.map(each => ({
+            id: each.id,
+            number: each.number,
+            isSelected: false
+        }))
+        setAvailableNumbers(temp);
+    }
+    
   }, []);
 
   const handleBuyMore = () => {
@@ -43,6 +45,7 @@ const BuyNumberWrapper = (props) => {
     setAvailableNumbers(availableNumbersCopy);
   };
   return (
+    
     <BuyNumber
       availableNumbers={availableNumbers}
       handleNumberSelect={handleNumberSelect}
