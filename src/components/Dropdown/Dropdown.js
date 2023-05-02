@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form, Row } from 'react-bootstrap';
 
 const Dropdown = (props) => {
   const { data, handleNumberSelect, defaultValue, idx } = props;
@@ -10,10 +11,10 @@ const Dropdown = (props) => {
 
   // console.log('defaultValue =>', defaultValue, 'data => ', data);
   return (
-    <div>
-      <label>
+    <Row>
+      <Form.Label>
         Pick a number:
-        <select
+        <Form.Select
           name="numbers"
           onChange={handleOptionClick}
           defaultValue={defaultValue.number}
@@ -37,10 +38,21 @@ const Dropdown = (props) => {
               </option>
             );
           })}
-        </select>
-      </label>
-    </div>
+        </Form.Select>
+      </Form.Label>
+    </Row>
   );
 };
 
+<Dropdown>
+  <Dropdown.Toggle variant="success" id="dropdown-basic">
+    Dropdown Button
+  </Dropdown.Toggle>
+
+  <Dropdown.Menu>
+    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+  </Dropdown.Menu>
+</Dropdown>;
 export default Dropdown;
