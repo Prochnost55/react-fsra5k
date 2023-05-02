@@ -3,11 +3,12 @@ import React from 'react';
 const Dropdown = (props) => {
   const { data, handleNumberSelect, defaultValue, idx } = props;
   const handleOptionClick = (e) => {
-    let number = e.target.value;
-    handleNumberSelect(idx, number);
+    let id = e.target.value;
+
+    handleNumberSelect(idx, id, defaultValue.id);
   };
 
-  console.log('defaultValue =>', defaultValue, 'data => ', data);
+  // console.log('defaultValue =>', defaultValue, 'data => ', data);
   return (
     <div>
       <label>
@@ -26,7 +27,7 @@ const Dropdown = (props) => {
               eachData.number != defaultValue.number &&
               eachData.isSelected == true
             ) {
-              console.log(eachData);
+              // console.log(eachData);
               return false;
             }
             // return false;

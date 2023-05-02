@@ -11,10 +11,10 @@ const BuyNumberWrapper = (props) => {
 
   React.useEffect(() => {
     // api call
-    data = data.map((eachData) => ({
-      number: eachData.number,
-      isSelected: false,
-    }));
+    data = data.map((eachData) => {
+      eachData.isSelected = false;
+      return eachData;
+    });
     setAvailableNumbers(data);
   }, []);
 
@@ -23,13 +23,22 @@ const BuyNumberWrapper = (props) => {
     selectedNumbersCopy.push({ number: '' });
     setSelectedNumbers(selectedNumbersCopy);
   };
-  const handleNumberSelect = (index, selectedNumber) => {
+  const handleNumberSelect = (dropdownIndex, numberId, oldNumberId) => {
     let selectedNumbersCopy = [...selectedNumbers];
-    selectedNumbersCopy[index].number = selectedNumber;
+    let availableNumbersCopy = [...availableNumbers];
+    let numIndex = availableNumbers.findIndex((d) => d.id == numberId);
+    let oldNumIndex = -1;
+
+    selectedNumbersCopy[dropdownIndex] = availableNumbersCopy[numIndex];
     setSelectedNumbers(selectedNumbersCopy);
 
-    let availableNumbersCopy = [...availableNumbers];
-    availableNumbersCopy[index].isSelected = true;
+    if (oldNumberId !== undefined) {
+      oldNumIndex = availableNumbers.findIndex((d) => d.id == oldNumberId);
+      availableNumbersCopy[oldNumIndex].isSelected = false;
+    }
+    availableNumbersCopy[numIndex].isSelected = true;
+    console.log(availableNumbersCopy);
+
     setAvailableNumbers(availableNumbersCopy);
   };
   return (
@@ -44,7 +53,7 @@ const BuyNumberWrapper = (props) => {
 
 const BuyNumber = (props) => {
   const { selectedNumbers } = props;
-  console.log('asdf=>', selectedNumbers);
+  // console.log('asdf=>', selectedNumbers);
   return (
     <div>
       <div>Select a numbers to buy</div>
